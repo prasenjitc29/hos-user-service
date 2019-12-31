@@ -47,8 +47,8 @@ public class UserService {
 		return new ResponseEntity(loginDTO,HttpStatus.ACCEPTED);
 	}
 	
-	public ResponseEntity getRefreshToken(String refreshToken) {
-		LoginUser user= loginRepo.findByRefreshToken(refreshToken);
+	public ResponseEntity getRefreshToken(LoginResponseDTO userDTO) {
+		LoginUser user= loginRepo.findByRefreshToken(userDTO.getRefreshToken());
 		if(user == null) {
 			return new ResponseEntity("Invalid login Credentials!", HttpStatus.UNAUTHORIZED);
 		}
