@@ -7,17 +7,17 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface LoginRepo extends JpaRepository<LoginUser, String> {
+public interface LoginRepo extends JpaRepository<LoginUser, Long> {
 	
-	@Query("SELECT u FROM LOGINUSER u WHERE u.userName=?1 AND u.password=?2")
+	@Query("SELECT u FROM LoginUser u WHERE u.userName=?1 AND u.password=?2")
 	LoginUser validateUser(String username,String password);
 	
 	@Modifying
-	@Query("update LOGINUSER u set u.refreshToken = :refreshToken WHERE u.userName = :userName")
+	@Query("update LoginUser u set u.refreshToken = :refreshToken WHERE u.userName = :username")
 	@Transactional
-	int updateRefreshToken(@Param("userName") String userName, @Param("refreshToken") String refreshToken);
+	int updateRefreshToken(@Param("username") String username, @Param("refreshToken") String refreshtoken);
 	
-	@Query("SELECT u FROM User u WHERE u.refreshToken=?1")
-	LoginUser findByRefreshToken(String refreshToken);
+	@Query("SELECT u FROM LoginUser u WHERE u.refreshToken=?1")
+	LoginUser findByRefreshToken(String refreshtoken);
 
 }
