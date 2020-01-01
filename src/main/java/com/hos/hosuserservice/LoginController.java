@@ -1,6 +1,6 @@
 package com.hos.hosuserservice;
 
-import javax.ws.rs.PathParam;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +25,8 @@ public class LoginController {
 			return userService.registration(loginUser);
 	}
 	
-	@GetMapping("accessToken")
-	public ResponseEntity getRefreshToken(@PathParam("refreshToken") String refreshToken) {
-		return userService.getRefreshToken(refreshToken);
+	@PostMapping("accessToken")
+	public ResponseEntity getRefreshToken(@RequestBody LoginResponseDTO loginDTO) {
+		return userService.getRefreshToken(loginDTO);
 	}
 }
